@@ -1,0 +1,47 @@
+---
+title: "The Transportaion Model"
+author: "Avinash Ravipudi"
+date: "2022-10-15"
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+Heart is attempting to reduce expenses at both plant A and plant B, including shipping and manufacturing costs. However, its supply exceeds its demand, thus we must create a dummy destination, in this example a warehouse, to absorb the 10 unit demand discrepancy in order to achieve a workable solution. 
+
+Objective function : Min(622 x11 + 614 x12 + 630 x13 + 641 x21 + x645 x22 + 649 x23). 
+
+Variables: X11 = number of AEDs made and sent from plant A to warehouse 1. 
+           X12 = number of AEDs made and sent from plant A to warehouse 2. 
+           X13 = number of AEDs made and sent from plant A to warehouse 3. 
+           X14 = number of AEDs made and sent from plant A to fake warehouse 4.
+           X21 = number of AEDs made and sent from plant B to warehouse 1. 
+           X22 = number of AEDs manufactured and sent from plant B to warehouse 2. 
+           X23 = number of AEDs made and sent from plant B to warehouse 3. 
+           X24 = number of AEDs made and sent from plant B to fake warehouse 4.
+```{r}
+library(lpSolveAPI)
+x <- read.lp("Heart_Data.lp")
+x
+```
+Constraints:
+Plant A capacity constraint:  x11 + x12 +x13 +x14 =100,
+Plant B capacity constraint:  x21 +x22 +x23 +x24= 120,
+Warehouse 1 Demand constraint:  x11+ x21 =80,
+Warehouse 2 Demand Constraint:  x12 + x22 = 60,
+Warehouse 3 Demand constraint:  x13 + x23 = 70,
+Warehouse 4 Demand constraint: x14 + x24 =10
+```{r}
+solve(x)
+```
+#Total Cost Of Shipping and production
+```{r}
+get.objective(x)   #Total costs of shipping and production = $132790
+```
+#Variables
+```{r}
+get.variables(x)   #x11= 0, x12=60, x13=40 , x21= 80, x22= 0, x23= 30, x14, 0, x24 =10, total AEDs to be produced in Plant A= 100, and 110 in Plant B
+```

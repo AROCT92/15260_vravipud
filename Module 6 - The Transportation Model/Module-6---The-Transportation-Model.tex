@@ -1,0 +1,195 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={The Transportaion Model},
+  pdfauthor={Avinash Ravipudi},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{The Transportaion Model}
+\author{Avinash Ravipudi}
+\date{2022-10-15}
+
+\begin{document}
+\maketitle
+
+Heart is attempting to reduce expenses at both plant A and plant B,
+including shipping and manufacturing costs. However, its supply exceeds
+its demand, thus we must create a dummy destination, in this example a
+warehouse, to absorb the 10 unit demand discrepancy in order to achieve
+a workable solution.
+
+Objective function : Min(622 x11 + 614 x12 + 630 x13 + 641 x21 + x645
+x22 + 649 x23).
+
+Variables: X11 = number of AEDs made and sent from plant A to warehouse
+1. X12 = number of AEDs made and sent from plant A to warehouse 2. X13 =
+number of AEDs made and sent from plant A to warehouse 3. X14 = number
+of AEDs made and sent from plant A to fake warehouse 4. X21 = number of
+AEDs made and sent from plant B to warehouse 1. X22 = number of AEDs
+manufactured and sent from plant B to warehouse 2. X23 = number of AEDs
+made and sent from plant B to warehouse 3. X24 = number of AEDs made and
+sent from plant B to fake warehouse 4.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(lpSolveAPI)}
+\NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{read.lp}\NormalTok{(}\StringTok{"Heart\_Data.lp"}\NormalTok{)}
+\NormalTok{x}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Model name: 
+##            x11   x12   x13   x21   x22   x23   x14   x24        
+## Minimize   622   614   630   641   645   649     0     0        
+## R1           1     1     1     0     0     0     1     0  =  100
+## R2           0     0     0     1     1     1     0     1  =  120
+## R3           1     0     0     1     0     0     0     0  =   80
+## R4           0     1     0     0     1     0     0     0  =   60
+## R5           0     0     1     0     0     1     0     0  =   70
+## R6           0     0     0     0     0     0     1     1  =   10
+## Kind       Std   Std   Std   Std   Std   Std   Std   Std        
+## Type      Real  Real  Real  Real  Real  Real  Real  Real        
+## Upper      Inf   Inf   Inf   Inf   Inf   Inf   Inf   Inf        
+## Lower        0     0     0     0     0     0     0     0
+\end{verbatim}
+
+Constraints: Plant A capacity constraint: x11 + x12 +x13 +x14 =100,
+Plant B capacity constraint: x21 +x22 +x23 +x24= 120, Warehouse 1 Demand
+constraint: x11+ x21 =80, Warehouse 2 Demand Constraint: x12 + x22 = 60,
+Warehouse 3 Demand constraint: x13 + x23 = 70, Warehouse 4 Demand
+constraint: x14 + x24 =10
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{solve}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0
+\end{verbatim}
+
+\#Total Cost Of Shipping and production
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{get.objective}\NormalTok{(x)   }\CommentTok{\#Total costs of shipping and production = $132790}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 132790
+\end{verbatim}
+
+\#Variables
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{get.variables}\NormalTok{(x)   }\CommentTok{\#x11= 0, x12=60, x13=40 , x21= 80, x22= 0, x23= 30, x14, 0, x24 =10, total AEDs to be produced in Plant A= 100, and 110 in Plant B}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  0 60 40 80  0 30  0 10
+\end{verbatim}
+
+\end{document}
