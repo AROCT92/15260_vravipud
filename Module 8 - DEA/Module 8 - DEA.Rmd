@@ -1,0 +1,118 @@
+---
+title: "Module 8 - DEA"
+author: "Avinash Ravipudi"
+date: "2022-10-26"
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Installing required packages
+
+```{r}
+#install.packages("Benchmarking")
+library(Benchmarking)
+library(lpSolveAPI)
+DEA <- read.lp("DEA.lp")
+DEA
+```
+
+#Formulate models for DEA.
+
+```{r}
+#To obtain the weight for DEA, formulate the issue as lp.
+solve(DEA)
+get.objective(DEA)     #to maximize DEA efficiency
+get.variables(DEA)    #Weights for inputs and outputs advocated for optimal efficiency
+
+x <- matrix(c(150, 400, 320, 520, 350, 320, 0.2, 0.7, 1.2, 2.0, 1.2, 0.7), ncol = 2)
+y <- matrix(c(14000,14000,42000,28000,19000,14000,3500,21000,10500,42000,25000,15000),ncol = 2)
+
+colnames(y) <- c("Reimbursed Patient_Days","Privately Paid Patient_Days")
+colnames(x) <- c("Staff_Hours", "Supplies")
+
+
+print(x) #Print the values of 'X' 
+print(y) #Print the values of 'Y'
+
+Table<- cbind(x,y)
+row.names(Table) =  c("Facility1", "Facility2", "Facility3", "Facility4", "Facility5", "Facility6")
+Table
+```
+
+#Following that, we conduct DEA Analysis under all DEA assumptions (FDH, CRS, VRS, IRS, DRS, and FRH)
+
+```{r}
+
+#Convexity, free disposability, and constant returns to scale
+CRS <- dea(x,y, RTS = "crs") # provide the input and output The results demonstrate that Facilities 1, 2, 3, 4, and 5 are efficient, with efficiency rates of 98% and 87%, respectively.
+print(CRS)
+peers(CRS)    # determine the peers For facilities 5,6, the peer units are 1,2,4.
+CRS_Weights <- lambda(CRS)    #Determine the relative weights assigned to the peers. For facility 4, the weights are 0.20, 0.08, and 0.54. The facility 6 weights are 0.34, 0.39, and 0.13.
+
+
+#hull for free disposal
+FDH <- dea(x,y, RTS= "fdh")
+FDH  #All amenities are effective.
+peers(FDH)  #Each facility's peer is itself
+FDH_Weights <- lambda(FDH)
+
+
+#Convexity, free disposability, and variable returns to scale
+VRS <- dea(x,y, RTS = "vrs")
+VRS    #Except for facility 6, all facilities are effective.
+peers(VRS)   #peers for facility 6 are 1,2,5
+VRS_Weights <- lambda(VRS)
+
+
+#Increasing returns to scale (up-scaling but not down-scaling), convexity, and free disposability
+IRS <- dea(x,y, RTS= "irs")
+IRS    #Reduced scale returns, convexity, downscaling, and free disposability
+peers(IRS)    #peers for facility 6 are 1,2,5
+IRS_Weights <- lambda(IRS)
+
+
+#Reduced returns to scale, convexity, downscaling, and free disposability
+DRS <- dea(x,y, RTS= "drs")  #DRS produced the same findings as CRS.
+DRS     #Except for facility 5,6, all facilities are efficient.
+peers(DRS)  # For facilities 5,6, the peer units are 1,2,4.
+DRS_Weights <- lambda(DRS)
+  
+
+
+FRH <- dea(x,y, RTS= "add")
+FRH  #Every facility is effective.
+peers(FRH)    #Each facility's peer unit is itself.
+FRH_Weights <- lambda(FRH)
+
+```
+
+```{r}
+
+as.data.frame(Table)
+
+Df <-data.frame (CRS = c(1.0000, 1.0000, 1.0000, 1.0000, 0.9775, 0.8675),
+FDH= c(1,1,1,1,1,1), VRS= c(1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 0.8963),IRS =c( 1.0000, 1.0000, 1.0000, 1.0000, 1.0000 ,0.8963), DRS= c(1.0000 ,1.0000 ,1.0000, 1.0000, 0.9775, 0.8675), FRH= c(1,1,1,1,1,1))
+Df
+
+#We now examine the efficiency outcomes at each facility in each DEA scenario. CRS and DRS produce the same findings, as do FDH and FRH, and both VRS and IRS produce the same results.
+Results <- cbind(Table,Df)
+Results[,-c(1:4)]
+
+
+#A list of the weights allocated to each facility in each DEA assumption.
+Weights_tbl <- cbind(FDH_Weights, CRS_Weights, VRS_Weights, IRS_Weights, DRS_Weights, FRH_Weights)
+row.names(Weights_tbl) =   c("Fac1", "Fac2", "Fac3", "Fac4", "Fac5", "Fac6")
+
+colnames(Weights_tbl) <- c("FDH","FDH", "FDH", "FDH","FDH","FDH", "CRS", "CRS", "CRS", "CRS", "VRS", "VRS", "VRS","VRS", "VRS", "IRS", "IRS", "IRS", "IRS","IRS", "DRS", "DRS", "DRS", "DRS", "FRH", "FRH", "FRH", "FRH", "FRH","FRH") 
+as.data.frame(Weights_tbl)   #The table summarizes the input and output weights for each facility under each DEA assumption.
+
+###DEA Analysis Summary for Hope Valley Health Care Association: All facilities are efficient under FDH and FRH; all facilities are efficient under CRS and DRS except Facility 5,6. Except for facility 6, all were efficient under VRS and IRS assumptions. They are the peer units for efficient facilities. The VRS and IRS assumptions for inefficient facilities were 1, 2, and 5. The peer units under CRS and DRS were 1, 2, and 4. 
+
+
+```
