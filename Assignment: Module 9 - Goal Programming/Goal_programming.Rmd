@@ -1,0 +1,63 @@
+---
+title: "Goal Programming"
+author: "Avinash Ravipudi"
+date: "2022-11-04"
+output:
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+EMAX Corporation:
+
+Maximize Z = P - 6C - 3D, where  
+               
+             P = total (discounted) profit over the life of the new products, 
+             C = change (in either direction) in the current level of employment, 
+             D = decrease (if any) in next year’s earnings from the current year’s level.
+
+From the Given table i can write an equation as follows
+
+        P = 20X1 + 15X2 + 25X3
+       Y1 = 6X1 + 4X2 + 5X3 - 50
+       Y2 = 8X1 + 7X2 +5X3 - 75
+
+         Y1+ is going over the employment level goal and the weighted penality is 6
+         Y1- is going under the employment level goal and the weighted penality is 6
+         Y2+ is going over the earnings goal for next year- no penality
+         Y2- is going under the earnings goal for next year and the peanlity is 3.
+         X1 is the quantity of product 1 to be produced
+         X2 is the quantity of product 2 to be produced
+         X3 is the quantity of product 3 to be produced 
+
+
+LP formulation:
+__________________
+// Objective function
+MAX: 20X1 + 15X2 + 25X3 - 6 Y1P - 6 Y1M - 3 Y2M;
+
+// Constraints
+6X1 + 4X2 + 5X3 + Y1P - Y1M = 50;
+8X1 + 7X2 + 5X3 + Y2P - Y2M = 75;
+
+```{r}
+library(lpSolveAPI)
+Zmax <- read.lp("Zmax.lp")
+Zmax
+```
+
+
+```{r}
+solve (Zmax)
+```
+
+```{r}
+get.objective(Zmax)
+```
+
+```{r}
+#To make 225 million dollars, Emax must create 15 units of product 3 and none of products 1 and 2. Employment will exceed the target by 2500 people.
+get.variables(Zmax)
+```
