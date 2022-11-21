@@ -1,0 +1,75 @@
+---
+title: "Module 11 - Integer Programming"
+author: "Avinash Ravipudi"
+date: "2022-11-17"
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+AP shipping company's problem formulation: 
+
+//OBJECTIVE FUNCTION
+MIN: 775X1 + 800X2 + 800X3 + 800X4 + 800X5 + 775X6 + 750X7;
+
+// CONSTRAINS
+WORKERS REQUIRED ON SUNDAY  CONSTRAINTS : X2 + X3 + X4 + X5 + X6 >= 18;
+WORKERS REQUIRED ON MONDAY  CONSTRAINTS : X3 + X4 + X5 + X6 + X7 >= 27;
+WORKERS REQUIRED ON TUESDAY  CONSTRAINTS : X1 + X4 + X5 + X6 + X7 >= 22;
+WORKERS REQUIRED ON WEDNESDAY  CONSTRAINTS : X1 + X2 + X5+ X6 + X7 >= 26;
+WORKERS REQUIRED ON THURSDAY  CONSTRAINTS : X1 + X2 + X3 + X6 + X7 >= 25;
+WORKERS REQUIRED ON FRIDAY  CONSTRAINTS : X1 + X2 + X3 + X4 + X7 + >= 21;
+WORKERS REQUIRED ON SATURDAY  CONSTRAINTS : X1 + X2 + X3 + X4 + X5 >= 19;
+
+// INTEGERS X1,X2,X3,X4,X5,X6,X7>=0 ;
+
+X1 : workers assigned for shift 1 = 2;
+X2 : workers assigned for shift 2 = 4;
+X3 : workers assigned for shift 3 = 5;
+X4 : workers assigned for shift 4 = 0;
+X5 : workers assigned for shift 5 = 8;
+X6 : workers assigned for shift 6 = 1;
+X7 : workers assigned for shift 7 = 13;
+
+*Reading the lp file:*
+```{r}
+library(lpSolveAPI)
+AP_Shipping <- read.lp("shipping.lp")
+AP_Shipping
+```
+*lp model solution:*
+```{r}
+solve(AP_Shipping) #Optimal solution found
+```
+*How much did everything cost in total?*
+```{r}
+get.objective(AP_Shipping)  #The minimum wage expense is $25,675
+```
+*How many staff are accessible each day?*
+```{r}
+get.variables(AP_Shipping) 
+```
+*The number of workers available for each shift is as follows:*
+```{r}
+workers <- matrix(c(0,4,5,0,8,1,0,
+                    0,0,5,0,8,1,13,
+                    2,0,0,0,8,1,13,
+                    2,4,0,0,8,1,13,
+                    2,4,5,0,0,1,13,
+                    2,3,4,0,0,0,13,
+                    2,4,5,0,8,0,0), ncol=7,byrow=TRUE)
+row.names(workers) <- c('SUN','MON','TUE','WED','THUR','FRI','SAT')
+colnames(workers)<- c('SHIFT-1','SHIFT-2','SHIFT-3','SHIFT-4','SHIFT-5','SHIFT-6','SHIFT-7')
+workers
+```
+*The number of workers needed each day to reduce total wage expenses:*
+```{r}
+rowSums(workers)
+```
+
+
